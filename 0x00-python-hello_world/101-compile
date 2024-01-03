@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -z "$PYFILE" ]; then
+    echo "Error: Please set the PYFILE environment variable before running this script."
+    exit 1
+fi
+
+compiled_file="main.pyc"
+
+echo "Compiling $PYFILE ..."
+python3 -m py_compile "$PYFILE"
+
+if [ -f "__pycache__/$compiled_file" ]; then
+    mv "__pycache__/$compiled_file" .
+    echo "Compilation successful!"
+    ls "$compiled_file"
+else
+    echo "Compilation failed."
+    exit 1
+fi
+
